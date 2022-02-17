@@ -1,0 +1,41 @@
+﻿@model IndyBooks.ViewModels.ResultsViewModel
+@{
+    ViewBag.Title = "Admin Search";
+    Layout = "_Layout";
+    var culture = new System.Globalization.CultureInfo("en-US");
+}
+
+<h3>Search Result</h3>
+@if (Model.BookList.Any())
+{
+    <table class="table">
+        
+        <tr><th>Title</th><th>Author</th><th>SKU</th><th>Price</th></tr>
+
+        @foreach (var book in Model.BookList)
+        {
+    <tr>
+        <td>
+            @book.Title
+        </td>
+        <!-- TODO: Add the Author from the ERD (you will also need to adjust the )-->
+        <td>
+
+        </td>
+        <td class="rightedge">
+            @book.SKU
+        </td>
+        <td class="rightedge">
+            @book.Price.ToString("C2", culture)
+        </td>
+    </tr>
+        }
+
+    </table>
+}
+else
+{ <p class="alert"> No Books match your search</p>}
+
+
+
+
