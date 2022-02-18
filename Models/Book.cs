@@ -22,5 +22,7 @@ namespace IndyBooks.Models
         [Display(Name = "Price")]
         public decimal Price { get; set; }
 
+        public virtual Writer Author { get; set; }
+
     }
 }

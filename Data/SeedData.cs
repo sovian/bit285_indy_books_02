@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Bogus;
 using IndyBooks.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,13 +32,14 @@ namespace IndyBooks
             // TODO: Step (1) Uncomment the code below, run the application and use your data inspector to view the generated data
             // TODO: Step (2) modify the code below to create a collection of 50 writers and 185 books (notice this creates an error, why?)
             // TODO: Step (3) modify the code below to create a collection of 45 writers and 185 books 
-            /*
+           
             Randomizer.Seed = new Random(8672309);
                 var authorIndex = 0;
 
-                //Writer Faker
-                var testWriter = new Faker<Writer>()
-                                    .RuleFor(w => w.Name, a => authors[authorIndex++]);
+            //Writer Faker
+            var testWriter = new Faker<Writer>()
+                                .RuleFor(w => w.FirstName, a => authors[authorIndex++].Split(" ")[0])
+                                .RuleFor(w => w.LastName, a => authors[authorIndex++].Split(" ")[1]);
                 var writers = testWriter.Generate(3);
 
                 //Book Faker
@@ -53,7 +55,7 @@ namespace IndyBooks
                 await context.Books.AddRangeAsync(books);
                 await context.Writers.AddRangeAsync(writers);
                 await context.SaveChangesAsync();
-            */
+           
         }
     }
 }

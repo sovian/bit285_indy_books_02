@@ -24,7 +24,7 @@ namespace IndyBooks.Controllers
         {
             // Add the entire set of books to the Results View Model
             // TODO: Include the Author data with the books 
-            ResultsViewModel results = new ResultsViewModel { BookList = _dbc.Books };
+            ResultsViewModel results = new ResultsViewModel { BookList = _dbc.Books.Include(b=>b.Author) };
 
             //Filter the collection when there is a non-empty Field as noted
 
@@ -38,12 +38,14 @@ namespace IndyBooks.Controllers
             //TODO: Author's Last Name Search
             if (searchVM.AuthorLastName != null)
             {
-
+                results.BookList = results.BookList
+                             .Where(b => b.Author.LastName== searchVM.AuthorLastName);
             }
             //TODO: Priced Between Search (both min and max price entered)
             if (searchVM.MinPrice > 0 && searchVM.MaxPrice > 0)
             {
-
+                results.BookList = results.BookList
+                            .Where(b => b.Price>=searchVM.MinPrice && b.Price <= searchVM.MaxPrice) ;
             }
 
             return View("SearchResults", results);
